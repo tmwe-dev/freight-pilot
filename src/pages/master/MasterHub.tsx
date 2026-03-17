@@ -60,7 +60,7 @@ export default function MasterHub() {
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.98 }}
-          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
           className="h-full w-full"
         >
           <ActiveComponent />
