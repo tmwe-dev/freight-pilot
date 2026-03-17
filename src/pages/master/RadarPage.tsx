@@ -21,7 +21,6 @@ import {
   GlassCard,
   WowBackground,
   GlobalFilters,
-  AICompanion,
 } from "@/components/platform";
 import { cn } from "@/lib/utils";
 
@@ -312,7 +311,7 @@ export default function RadarPage() {
 
   // Canvas 1: Ricerca
   const Canvas1 = () => (
-    <div className="relative w-full h-full flex flex-col">
+    <div className="relative w-full h-full flex flex-col" style={{ height: '100%' }}>
       <WowBackground variant="radar" intensity="high" />
 
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-6">
@@ -446,7 +445,7 @@ export default function RadarPage() {
 
   // Canvas 2: Risultati
   const Canvas2 = () => (
-    <div className="relative w-full h-full flex flex-col">
+    <div className="relative w-full h-full flex flex-col" style={{ height: '100%' }}>
       <WowBackground variant="radar" intensity="medium" />
 
       <div className="relative z-10 flex flex-col h-full p-6">
@@ -454,6 +453,7 @@ export default function RadarPage() {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
           className="mb-6"
         >
           <h2 className="text-3xl font-bold text-white mb-2">Risultati</h2>
@@ -464,7 +464,7 @@ export default function RadarPage() {
 
         {/* Results grid */}
         <div className="flex-1 overflow-y-auto pr-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <AnimatePresence>
               {filteredPartners.map((partner, index) => (
                 <motion.div
@@ -472,7 +472,7 @@ export default function RadarPage() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ delay: index * 0.05 }}
+                  transition={{ delay: index * 0.08, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
                   onClick={() => {
                     setSelectedPartner(partner.id);
                     setCarouselIndex(2);
@@ -550,7 +550,7 @@ export default function RadarPage() {
 
   // Canvas 3: Deep Search
   const Canvas3 = () => (
-    <div className="relative w-full h-full flex flex-col">
+    <div className="relative w-full h-full flex flex-col" style={{ height: '100%' }}>
       <WowBackground variant="radar" intensity="medium" />
 
       <div className="relative z-10 flex flex-col h-full p-6">
@@ -645,6 +645,7 @@ export default function RadarPage() {
                     key={module.id}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5 }}
                   >
                     <GlassCard className="p-4">
                       <div className="flex items-center gap-2 mb-3">
@@ -724,28 +725,6 @@ export default function RadarPage() {
         <Canvas2 />
         <Canvas3 />
       </CarouselEngine>
-
-      {/* AI Companion */}
-      <AICompanion
-        context="Partner Intelligence Search"
-        quickActions={[
-          {
-            label: "Find top-rated partners",
-            icon: TrendingUp,
-            action: () => setSearchQuery(""),
-          },
-          {
-            label: "Filter by region",
-            icon: MapPin,
-            action: () => {},
-          },
-          {
-            label: "Compare scores",
-            icon: BarChart3,
-            action: () => {},
-          },
-        ]}
-      />
     </div>
   );
 }

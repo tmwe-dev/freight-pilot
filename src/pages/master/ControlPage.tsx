@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   CarouselEngine,
   GlassCard,
-  AICompanion,
 } from "@/components/platform";
 import {
   TrendingUp,
@@ -159,7 +158,7 @@ function DashboardKPICanvas() {
 
       <div className="flex-1 flex flex-col gap-6 overflow-hidden">
         {/* KPI Cards */}
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {MOCK_KPIS.map((kpi, idx) => {
             const Icon = kpi.icon;
             const isPositive = kpi.trend >= 0;
@@ -170,12 +169,12 @@ function DashboardKPICanvas() {
                 key={idx}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1, type: "spring", stiffness: 100 }}
+                transition={{ delay: idx * 0.08, type: "spring", stiffness: 200, damping: 25 }}
               >
                 <GlassCard variant="highlighted" className="p-4">
                   <div className="flex items-start justify-between mb-3">
-                    <div className={`p-2 rounded-lg bg-${kpi.color}-500/20`}>
-                      <Icon className={`w-5 h-5 text-${kpi.color}-400`} />
+                    <div className={cn(`p-2 rounded-lg`, kpi.color === "blue" ? "bg-blue-500/20" : kpi.color === "purple" ? "bg-purple-500/20" : kpi.color === "green" ? "bg-green-500/20" : "bg-orange-500/20")}>
+                      <Icon className={cn(`w-5 h-5`, kpi.color === "blue" ? "text-blue-400" : kpi.color === "purple" ? "text-purple-400" : kpi.color === "green" ? "text-green-400" : "text-orange-400")} />
                     </div>
                     <motion.div
                       initial={{ scale: 0 }}
@@ -217,7 +216,7 @@ function DashboardKPICanvas() {
         </div>
 
         {/* Charts Grid */}
-        <div className="flex-1 grid grid-cols-3 gap-4 overflow-hidden">
+        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 overflow-hidden">
           {/* Line Chart - Acquisition */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -369,12 +368,12 @@ function ScoreAnalyticsCanvas() {
         <p className="text-white/50 text-sm">Analisi dettagliata dei scoring e deduplica</p>
       </div>
 
-      <div className="flex-1 grid grid-cols-3 gap-6 overflow-hidden">
+      <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-hidden">
         {/* Radar Chart */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2 }}
+          transition={{ delay: 0.2, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
           className="overflow-hidden"
         >
           <GlassCard className="h-full p-4 flex flex-col">
@@ -460,7 +459,7 @@ function ScoreAnalyticsCanvas() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.3, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
             className="overflow-hidden"
           >
             <GlassCard className="p-4 h-40">
@@ -487,16 +486,16 @@ function ScoreAnalyticsCanvas() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.4, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
             className="flex-1"
           >
             <GlassCard className="p-4 flex flex-col">
               <p className="text-sm font-semibold text-white mb-4">Deduplication Stats</p>
               <div className="space-y-3 flex-1">
                 {[
-                  { label: "Clusters Found", value: MOCK_DEDUP_STATS.clustersFound, icon: AlertCircle, color: "yellow" },
-                  { label: "Merged", value: MOCK_DEDUP_STATS.merged, icon: CheckCircle, color: "green" },
-                  { label: "Pending", value: MOCK_DEDUP_STATS.pending, icon: Clock, color: "blue" },
+                  { label: "Clusters Found", value: MOCK_DEDUP_STATS.clustersFound, icon: AlertCircle, color: "yellow", textClass: "text-yellow-400" },
+                  { label: "Merged", value: MOCK_DEDUP_STATS.merged, icon: CheckCircle, color: "green", textClass: "text-green-400" },
+                  { label: "Pending", value: MOCK_DEDUP_STATS.pending, icon: Clock, color: "blue", textClass: "text-blue-400" },
                 ].map((item, idx) => {
                   const Icon = item.icon;
                   return (
@@ -504,10 +503,10 @@ function ScoreAnalyticsCanvas() {
                       key={idx}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.5 + idx * 0.1 }}
+                      transition={{ delay: 0.5 + idx * 0.08, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
                       className="flex items-center gap-3 p-2 rounded-lg bg-white/5 border border-white/10"
                     >
-                      <Icon className={`w-4 h-4 text-${item.color}-400`} />
+                      <Icon className={cn(`w-4 h-4`, item.textClass)} />
                       <div className="flex-1">
                         <p className="text-xs text-white/60">{item.label}</p>
                         <p className="text-sm font-semibold text-white">{item.value}</p>
@@ -524,7 +523,7 @@ function ScoreAnalyticsCanvas() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.5, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
           className="overflow-hidden"
         >
           <GlassCard className="p-4 flex flex-col h-full">
@@ -605,7 +604,7 @@ function SystemCanvas() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+            transition={{ delay: 0.1, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
             className="overflow-hidden"
           >
             <GlassCard className="p-4 flex-1 flex flex-col">
@@ -651,7 +650,7 @@ function SystemCanvas() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.2, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
             className="overflow-hidden"
           >
             <GlassCard className="p-4 flex-1 flex flex-col">
@@ -695,7 +694,7 @@ function SystemCanvas() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.2, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
             className="overflow-hidden"
           >
             <GlassCard className="p-4 flex-1 flex flex-col">
@@ -747,7 +746,7 @@ function SystemCanvas() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.3, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
             className="flex flex-col gap-3 overflow-hidden"
           >
             {/* User Profile */}
@@ -840,7 +839,7 @@ export default function ControlPage() {
   ];
 
   return (
-    <div className="w-full h-screen bg-black flex flex-col relative">
+    <div className="w-full h-full bg-black flex flex-col relative">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-3xl" />
@@ -859,9 +858,6 @@ export default function ControlPage() {
           ))}
         </CarouselEngine>
       </div>
-
-      {/* AI Companion */}
-      <AICompanion context="control" quickActions={quickActions} />
     </div>
   );
 }

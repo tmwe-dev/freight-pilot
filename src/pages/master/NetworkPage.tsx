@@ -19,7 +19,6 @@ import {
   GlassCard,
   ListDetailView,
   WowBackground,
-  AICompanion,
 } from "@/components/platform";
 import PartnerGlobe from "@/components/platform/PartnerGlobe";
 import { cn } from "@/lib/utils";
@@ -259,7 +258,7 @@ export default function NetworkPage() {
 
   // Canvas 1: Elenco Partner
   const Canvas1 = () => (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full" style={{ height: '100%' }}>
       <WowBackground variant="network" intensity="medium" />
 
       <div className="relative z-10 h-full">
@@ -343,7 +342,7 @@ export default function NetworkPage() {
 
   // Canvas 2: Scheda Partner
   const Canvas2 = () => (
-    <div className="relative w-full h-full overflow-auto">
+    <div className="relative w-full h-full overflow-auto" style={{ height: '100%' }}>
       <WowBackground variant="network" intensity="medium" />
 
       <div className="relative z-10 p-8">
@@ -352,7 +351,7 @@ export default function NetworkPage() {
             key={selectedPartner.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
             className="space-y-8 max-w-4xl mx-auto"
           >
             {/* Header section */}
@@ -425,7 +424,7 @@ export default function NetworkPage() {
             </GlassCard>
 
             {/* Key stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <GlassCard className="p-4 text-center">
                 <div className="text-xs text-white/60 mb-2">Employees</div>
                 <div className="text-2xl font-bold text-white">
@@ -536,7 +535,7 @@ export default function NetworkPage() {
 
   // Canvas 3: Analisi & Confronto
   const Canvas3 = () => (
-    <div className="relative w-full h-full overflow-auto">
+    <div className="relative w-full h-full overflow-auto" style={{ height: '100%' }}>
       <WowBackground variant="network" intensity="medium" />
 
       <div className="relative z-10 p-8">
@@ -552,7 +551,7 @@ export default function NetworkPage() {
           {/* Partner selector */}
           <div className="mb-8">
             <p className="text-sm text-white/60 mb-3">Select 2-3 partners to compare</p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               {MOCK_PARTNERS.slice(0, 8).map((partner) => (
                 <motion.button
                   key={partner.id}
@@ -619,7 +618,7 @@ export default function NetworkPage() {
               </GlassCard>
 
               {/* Strengths & weaknesses */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {comparisonPartners.map((partner) => (
                   <GlassCard key={partner.id} className="p-4">
                     <h4 className="font-semibold text-white mb-3 text-sm">
@@ -695,28 +694,6 @@ export default function NetworkPage() {
         <Canvas2 />
         <Canvas3 />
       </CarouselEngine>
-
-      {/* AI Companion */}
-      <AICompanion
-        context="Partner Network Management"
-        quickActions={[
-          {
-            label: "Find best matches",
-            icon: Users,
-            action: () => {},
-          },
-          {
-            label: "Export network",
-            icon: Download,
-            action: () => {},
-          },
-          {
-            label: "Network analytics",
-            icon: TrendingUp,
-            action: () => {},
-          },
-        ]}
-      />
     </div>
   );
 }

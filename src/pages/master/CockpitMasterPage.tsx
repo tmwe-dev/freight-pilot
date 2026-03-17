@@ -1,9 +1,8 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   CarouselEngine,
   GlassCard,
-  AICompanion,
 } from "@/components/platform";
 import {
   Mail,
@@ -164,7 +163,7 @@ function CircuitoCanvas({ contacts, onContactUpdate }: { contacts: Contact[]; on
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
-                      transition={{ delay: idx * 0.05 }}
+                      transition={{ delay: idx * 0.08, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
                       className={cn(
                         "p-3 rounded-lg cursor-move transition-all duration-200",
                         "bg-white/5 border border-white/10 hover:border-white/20",
@@ -335,7 +334,7 @@ function LavorazioneCanvas({ contacts }: { contacts: Contact[] }) {
                       key={idx}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: idx * 0.05 }}
+                      transition={{ delay: idx * 0.08, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
                       whileHover={{ x: 4 }}
                       className="w-full flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all text-sm text-white/80"
                     >
@@ -590,7 +589,7 @@ export default function CockpitMasterPage() {
   ];
 
   return (
-    <div className="w-full h-screen bg-black flex flex-col relative">
+    <div className="w-full h-full bg-black flex flex-col relative">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
@@ -609,9 +608,6 @@ export default function CockpitMasterPage() {
           ))}
         </CarouselEngine>
       </div>
-
-      {/* AI Companion */}
-      <AICompanion context="cockpit" quickActions={quickActions} />
     </div>
   );
 }

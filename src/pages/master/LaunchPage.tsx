@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   CarouselEngine,
   GlassCard,
-  AICompanion,
 } from "@/components/platform";
 import {
   Users,
@@ -79,7 +78,6 @@ function CreaCampagnaCanvas() {
   const [step, setStep] = useState(0);
   const [campaignData, setCampaignData] = useState({
     audience: "circuit-stage",
-    audienceValue: "",
     selectedCount: 87,
     channel: "email",
     goal: "",
@@ -109,7 +107,7 @@ function CreaCampagnaCanvas() {
         <p className="text-white/50 text-sm">Configura una nuova campagna di outreach</p>
       </div>
 
-      <div className="flex-1 grid grid-cols-2 gap-6 overflow-hidden">
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6 overflow-hidden">
         {/* Left: Step selector and info */}
         <div className="flex flex-col gap-4 overflow-hidden">
           <GlassCard className="p-0 overflow-hidden">
@@ -121,7 +119,7 @@ function CreaCampagnaCanvas() {
                   onClick={() => setStep(idx)}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.1 }}
+                  transition={{ delay: idx * 0.08, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
                   className={cn(
                     "w-full p-4 text-left transition-all hover:bg-white/5",
                     step === idx && "bg-white/10 border-l-2 border-blue-400"
@@ -167,26 +165,26 @@ function CreaCampagnaCanvas() {
             <p className="text-xs text-white/50 mb-4">Funnel Preview</p>
             <div className="space-y-3">
               {[
-                { label: "Sent", value: campaignData.selectedCount, color: "blue" },
-                { label: "Opened", value: Math.round(campaignData.selectedCount * 0.35), color: "purple" },
-                { label: "Clicked", value: Math.round(campaignData.selectedCount * 0.12), color: "orange" },
-                { label: "Replied", value: Math.round(campaignData.selectedCount * 0.05), color: "green" },
+                { label: "Sent", value: campaignData.selectedCount, color: "blue", bgClass: "bg-blue-500/20", textClass: "text-blue-300" },
+                { label: "Opened", value: Math.round(campaignData.selectedCount * 0.35), color: "purple", bgClass: "bg-purple-500/20", textClass: "text-purple-300" },
+                { label: "Clicked", value: Math.round(campaignData.selectedCount * 0.12), color: "orange", bgClass: "bg-orange-500/20", textClass: "text-orange-300" },
+                { label: "Replied", value: Math.round(campaignData.selectedCount * 0.05), color: "green", bgClass: "bg-green-500/20", textClass: "text-green-300" },
               ].map((item, idx) => (
                 <motion.div
                   key={item.label}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.1 }}
+                  transition={{ delay: idx * 0.08, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
                   className="flex items-center gap-3"
                 >
-                  <div className={`w-8 h-8 rounded-full bg-${item.color}-500/20 flex items-center justify-center text-xs font-bold text-${item.color}-300`}>
+                  <div className={cn(`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold`, item.bgClass, item.textClass)}>
                     {idx + 1}
                   </div>
                   <div className="flex-1">
                     <p className="text-xs text-white/60">{item.label}</p>
                     <div className="h-1 bg-white/10 rounded-full overflow-hidden mt-1">
                       <motion.div
-                        className={`h-full bg-${item.color}-500`}
+                        className={item.color === "blue" ? "h-full bg-blue-500" : item.color === "purple" ? "h-full bg-purple-500" : item.color === "orange" ? "h-full bg-orange-500" : "h-full bg-green-500"}
                         initial={{ width: "0%" }}
                         animate={{ width: `${(item.value / campaignData.selectedCount) * 100}%` }}
                         transition={{ duration: 0.8, delay: 0.3 }}
@@ -217,7 +215,7 @@ function CreaCampagnaCanvas() {
                       key={option.value}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.1 }}
+                      transition={{ delay: idx * 0.08, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
                       onClick={() => setCampaignData({ ...campaignData, audience: option.value, selectedCount: option.contacts })}
                       className={cn(
                         "w-full p-4 text-left border-b border-white/5 transition-all hover:bg-white/5",
@@ -248,7 +246,7 @@ function CreaCampagnaCanvas() {
                         key={channel.id}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: idx * 0.1 }}
+                        transition={{ delay: idx * 0.08, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
                         onClick={() => setCampaignData({ ...campaignData, channel: channel.id })}
                         className={cn(
                           "p-4 rounded-xl border-2 transition-all flex items-center gap-3",
@@ -292,7 +290,7 @@ function CreaCampagnaCanvas() {
                       key={strategy.value}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.1 }}
+                      transition={{ delay: idx * 0.08, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
                       onClick={() => setCampaignData({ ...campaignData, strategy: strategy.value })}
                       className={cn(
                         "w-full p-4 text-left border-b border-white/5 transition-all hover:bg-white/5",
@@ -383,7 +381,7 @@ function TemplateAICanvas() {
         <p className="text-white/50 text-sm">Crea template di messaggi personalizzati con AI</p>
       </div>
 
-      <div className="flex-1 grid grid-cols-3 gap-6 overflow-hidden">
+      <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-hidden">
         {/* Left: Template editor */}
         <div className="flex flex-col gap-4 overflow-hidden">
           <GlassCard className="flex-1 p-4 flex flex-col overflow-hidden">
@@ -415,16 +413,24 @@ function TemplateAICanvas() {
             <div className="mt-4 pt-4 border-t border-white/5">
               <p className="text-xs text-white/50 mb-2">Variabili utilizzate:</p>
               <div className="flex flex-wrap gap-2">
-                {TEMPLATE_VARIABLES.map((v) => (
-                  <motion.div
-                    key={v.name}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className={`px-2 py-1 rounded text-xs font-mono text-white/80 bg-${v.color}-500/20 border border-${v.color}-500/30`}
-                  >
-                    {v.name}
-                  </motion.div>
-                ))}
+                {TEMPLATE_VARIABLES.map((v) => {
+                  const colorClasses = {
+                    blue: "bg-blue-500/20 border-blue-500/30",
+                    purple: "bg-purple-500/20 border-purple-500/30",
+                    green: "bg-green-500/20 border-green-500/30",
+                    orange: "bg-orange-500/20 border-orange-500/30",
+                  };
+                  return (
+                    <motion.div
+                      key={v.name}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className={cn(`px-2 py-1 rounded text-xs font-mono text-white/80 border`, colorClasses[v.color as keyof typeof colorClasses])}
+                    >
+                      {v.name}
+                    </motion.div>
+                  );
+                })}
               </div>
             </div>
           </GlassCard>
@@ -525,7 +531,7 @@ function TemplateAICanvas() {
                   key={idx}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.1 }}
+                  transition={{ delay: idx * 0.08, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
                   className="text-sm text-white/80 leading-relaxed"
                 >
                   {line}
@@ -577,7 +583,7 @@ function ProgrammaMonitoraCanvas() {
         <p className="text-white/50 text-sm">Calendario, job queue, e statistiche in tempo reale</p>
       </div>
 
-      <div className="flex-1 grid grid-cols-4 gap-4 overflow-hidden">
+      <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 overflow-hidden">
         {/* Stats cards */}
         <div className="col-span-1 flex flex-col gap-3">
           {stats.map((stat, idx) => {
@@ -751,7 +757,7 @@ export default function LaunchPage() {
   ];
 
   return (
-    <div className="w-full h-screen bg-black flex flex-col relative">
+    <div className="w-full h-full bg-black flex flex-col relative">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/3 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
@@ -770,9 +776,6 @@ export default function LaunchPage() {
           ))}
         </CarouselEngine>
       </div>
-
-      {/* AI Companion */}
-      <AICompanion context="launch" quickActions={quickActions} />
     </div>
   );
 }
