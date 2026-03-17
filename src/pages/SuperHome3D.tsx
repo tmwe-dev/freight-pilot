@@ -11,6 +11,7 @@ import {
   Network,
   Orbit,
   Radar,
+  Rocket,
   Settings2,
   Sparkles,
   Users,
@@ -240,9 +241,20 @@ export default function SuperHome3D() {
             </div>
             <h1 className="mt-1 font-display text-xl font-semibold tracking-tight sm:text-2xl">8 mondi. Una sola porta d&apos;ingresso.</h1>
           </div>
-          <div className="hidden items-center gap-2 rounded-full border border-border/70 bg-background/70 px-3 py-1.5 text-xs text-muted-foreground md:flex">
-            <Layers3 className="h-3.5 w-3.5 text-primary" />
-            Frecce per orbitare · Invio per entrare
+          <div className="flex items-center gap-3">
+            <div className="hidden items-center gap-2 rounded-full border border-border/70 bg-background/70 px-3 py-1.5 text-xs text-muted-foreground md:flex">
+              <Layers3 className="h-3.5 w-3.5 text-primary" />
+              Frecce per orbitare · Invio per entrare
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigate("/platform")}
+              className="gap-2 border-primary/40 bg-primary/10 text-primary hover:bg-primary/20 hover:border-primary/60 transition-all"
+            >
+              <Rocket className="h-3.5 w-3.5" />
+              <span className="hidden sm:inline">Freight Pilot</span>
+            </Button>
           </div>
         </header>
 

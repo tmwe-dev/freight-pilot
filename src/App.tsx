@@ -38,6 +38,7 @@ const Deduplication = lazy(() => import("./pages/Deduplication"));
 const WorkflowEngine = lazy(() => import("./pages/WorkflowEngine"));
 const ScoringDashboard = lazy(() => import("./pages/ScoringDashboard"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const MasterHub = lazy(() => import("./pages/master/MasterHub"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -70,6 +71,9 @@ const App = () => (
 
               {/* Protected routes */}
               <Route element={<ProtectedRoute />}>
+                {/* ── NEW: Master Pages Platform (no AppLayout, full-screen) ── */}
+                <Route path="/platform" element={<MasterHub />} />
+
                 <Route element={<AppLayout />}>
                   <Route path="/" element={<SuperHome3D />} />
                   <Route path="/operations" element={<Operations />} />
