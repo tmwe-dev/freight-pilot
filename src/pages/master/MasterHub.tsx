@@ -7,8 +7,9 @@ import NetworkPage from "./NetworkPage";
 import CockpitMasterPage from "./CockpitMasterPage";
 import LaunchPage from "./LaunchPage";
 import ControlPage from "./ControlPage";
+import SettingsPage from "./SettingsPage";
 
-const PAGES = ["radar", "network", "cockpit", "launch", "control"] as const;
+const PAGES = ["radar", "network", "cockpit", "launch", "control", "settings"] as const;
 type PageId = (typeof PAGES)[number];
 
 const PAGE_COMPONENTS: Record<PageId, React.FC> = {
@@ -17,6 +18,7 @@ const PAGE_COMPONENTS: Record<PageId, React.FC> = {
   cockpit: CockpitMasterPage,
   launch: LaunchPage,
   control: ControlPage,
+  settings: SettingsPage,
 };
 
 export default function MasterHub() {
@@ -39,7 +41,7 @@ export default function MasterHub() {
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if (e.altKey && e.key >= "1" && e.key <= "5") {
+      if (e.altKey && e.key >= "1" && e.key <= "6") {
         e.preventDefault();
         handlePageChange(PAGES[parseInt(e.key) - 1]);
       }
@@ -52,13 +54,13 @@ export default function MasterHub() {
 
   return (
     <MasterPageShell activePage={activePage} onPageChange={handlePageChange}>
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={activePage}
-          initial={{ opacity: 0, scale: 0.98 }}
+          initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.98 }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="h-full w-full"
         >
           <ActiveComponent />
