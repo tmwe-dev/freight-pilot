@@ -1,0 +1,95 @@
+project_id = "zrbditqddhjkutzjycgi"
+
+[functions.scrape-wca-partners]
+verify_jwt = false
+
+[functions.analyze-partner]
+verify_jwt = false
+
+[functions.enrich-partner-website]
+verify_jwt = false
+
+[functions.scrape-wca-directory]
+verify_jwt = false
+
+[functions.process-download-job]
+verify_jwt = false
+
+[functions.deep-search-partner]
+verify_jwt = false
+
+[functions.parse-profile-ai]
+verify_jwt = false
+
+
+[functions.save-wca-cookie]
+verify_jwt = false
+
+[functions.scrape-wca-blacklist]
+verify_jwt = false
+
+[functions.get-wca-credentials]
+verify_jwt = false
+
+[functions.save-ra-cookie]
+verify_jwt = false
+
+[functions.get-ra-credentials]
+verify_jwt = false
+
+[functions.save-ra-prospects]
+verify_jwt = false
+
+[functions.generate-aliases]
+verify_jwt = false
+
+[functions.ai-assistant]
+verify_jwt = false
+
+[functions.send-email]
+verify_jwt = false
+
+[functions.check-subscription]
+verify_jwt = false
+
+[functions.create-checkout]
+verify_jwt = false
+
+[functions.customer-portal]
+verify_jwt = false
+
+[functions.stripe-webhook]
+verify_jwt = false
+
+[functions.consume-credits]
+verify_jwt = false
+
+[functions.buy-credits]
+verify_jwt = false
+
+[functions.generate-email]
+verify_jwt = false
+
+[functions.save-linkedin-cookie]
+verify_jwt = false
+
+[functions.get-linkedin-credentials]
+verify_jwt = false
+
+[functions.process-ai-import]
+verify_jwt = false
+
+[functions.analyze-import-structure]
+verify_jwt = false
+
+[functions.deduplicate-partners]
+verify_jwt = false
+
+[functions.import-assistant]
+verify_jwt = false
+
+[functions.contacts-assistant]
+verify_jwt = false
+
+[functions.cockpit-assistant]
+verify_jwt = false
